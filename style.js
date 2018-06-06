@@ -12,7 +12,7 @@
 		extraPlugins: ['blink_popover'],
 		ckEditorStyles: {
 			name: 'mcgrawhill_demo',
-			styles: [
+styles: [
 				{ name: 'Título 1', element: 'h2', attributes: { 'class': 'bck-title bck-title-1'} },
 				{ name: 'Título 2', element: 'h3', attributes: { 'class': 'bck-title bck-title-2'} },
 				{ name: 'Título 3', element: 'h3', attributes: { 'class': 'bck-title bck-title-3'} },
@@ -52,7 +52,7 @@
 			that.fillSlidesTitle();
 			that.getActualUnitActivities();
 			blink.events.on("course_loaded", function(){
-				parent.formatCarouselindicators();
+				that.formatCarouselindicators();
 				that.enableSliders();
 			});
 			that.animateNavbarOnScroll();
@@ -334,35 +334,6 @@
 				(scrollTop > lastScrollTop && scrollTop) ? $navbar.addClass('ocultar') : $navbar.removeClass('ocultar');
 				lastScrollTop = scrollTop;
 			});
-		},
-
-		// Busca la id de la última slide de un dropdown con la que se ha interactuado y
-		// guarda en el suspend data.
-		// @param {string} activePane 	Id del panel en el que se encuentra la slide
-		setActivePane : function (activePane) {
-			if (!!activePane && !!scormAPI) {
-				var slideId = $(activePane).find('.class_slide').attr('data-id'),
-					parentSlide = window['t' + window.activeSlide + '_slide'];
-				parentSlide.sublocation = slideId;
-			}
-		},
-
-		// Mira a ver si se ha guardado alguna slide del dropdown en el suspend data y,
-		// en caso de ser así, la pone como activa.
-		getActivePane : function () {
-			var currentSlide = window['t' + window.activeSlide + '_slide'];
-			if (currentSlide.sublocation) {
-				var activePane = $('.class_slide[data-id="' + currentSlide.sublocation + '"]')
-								.closest('.tab-pane'),
-					activeDropdown = $(activePane).closest('.bck-dropdown');
-				$(activeDropdown)
-					.find('a[href="#' + $(activePane).attr('id') + '"]')
-					.first()
-					.tab('show');
-				return true;
-			} else {
-				return true;
-			}
 		}
 	};
 
